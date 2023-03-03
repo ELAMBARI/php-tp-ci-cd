@@ -24,9 +24,19 @@ if ($heure < "12") {
     echo "Bon après-midi !";
 }
 
-// Appel de la fonction pour calculer la somme de deux nombres
-$resultat = calculerSomme(2, 3);
-echo "La somme de 2 et 3 est égale à " . $resultat;
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+// Créer un logger
+$log = new Logger('nom-du-logger');
+
+// Ajouter un gestionnaire de fichier
+$log->pushHandler(new StreamHandler('chemin/vers/le/fichier.log', Logger::WARNING));
+
+// Écrire un message de journalisation
+$log->warning('Un avertissement s\'est produit !');
+
 
 ?>
 
