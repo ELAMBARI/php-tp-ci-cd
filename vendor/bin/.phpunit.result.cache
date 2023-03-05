@@ -1,0 +1,1 @@
+{"version":1,"defects":{"IndexTest::testAfficherTitre":4,"IndexTest::testCalculerSomme":4},"times":{"IndexTest::testAfficherTitre":0.006,"IndexTest::testCalculerSomme":0,"IndexTest::testNoms":0,"IndexTest::testHeure":0,"IndexTest::testLogger":0.001}}

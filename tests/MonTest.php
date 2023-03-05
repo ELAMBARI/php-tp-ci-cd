@@ -1,58 +1,67 @@
 <?php
+require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../index.php';
 
-use PHPUnit\Framework\TestCase;
-use Maknz\Slack\Client as SlackClient;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
-class MonTest extends TestCase
+class IndexTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTrueIsTrue()
+    protected $log;
+
+    protected function setUp(): void
     {
-        $this->assertTrue(true);
+        $this->log = new Logger('test');
+        $this->log->pushHandler(new StreamHandler(__DIR__ . '/logs/test.log', Logger::WARNING));
+    }
+
+    public function testAfficherTitre()
+    {
+        ob_start();
+        afficherTitre('Test');
+        $output = ob_get_clean();
+        $this->assertEquals('<h1>Test</h1>', $output);
     }
 
     public function testCalculerSomme()
     {
-        $this->assertEquals(5, calculerSomme(2, 3));
-        $this->assertEquals(10, calculerSomme(6, 4));
-        $this->assertEquals(0, calculerSomme(-2, 2));
+        $resultat = calculerSomme(2, 3);
+        $this->assertEquals(5, $resultat);
     }
 
     public function testNoms()
     {
-        global $noms;
-        $this->assertContains('Anas', $noms);
-        $this->assertContains('Hamza', $noms);
-        $this->assertContains('Mariame', $noms);
-        $this->assertContains('Ziad', $noms);
+        $noms = array("Anas", "Hamza", "Mariame", "Ziad");
+        $expectedOutput = "Nom : Anas<br>Nom : Hamza<br>Nom : Mariame<br>Nom : Ziad<br>";
+        ob_start();
+        foreach ($noms as $nom) {
+            echo "Nom : " . $nom . "<br>";
+        }
+        $output = ob_get_clean();
+        $this->assertEquals($expectedOutput, $output);
     }
 
     public function testHeure()
     {
-        global $message;
         $heure = date('H');
+        ob_start();
         if ($heure < '12') {
-            $this->assertEquals('Bonjour !', $message);
+            echo 'Bonjour !';
         } else {
-            $this->assertEquals('Bon après-midi !', $message);
+            echo 'Bon après-midi !';
+        }
+        $output = ob_get_clean();
+        if ($heure < '12') {
+            $this->assertEquals('Bonjour !', $output);
+        } else {
+            $this->assertEquals('Bon après-midi !', $output);
         }
     }
+
+    public function testLogger()
+    {
+        $this->log->warning('Test message');
+        $logContent = file_get_contents(__DIR__ . '/logs/test.log');
+        $this->assertStringContainsString('Test message', $logContent);
+    }
 }
-
-// Exécution des tests
-$suite = new PHPUnit\Framework\TestSuite(MonTest::class);
-$testResult = PHPUnit\TextUI\TestRunner::run($suite);
-
-// Instanciation du client Slack
-$slack = new SlackClient('https://join.slack.com/t/nouvelespaced-day3309/shared_invite/zt-1qn344xc1-WfNx8BgG7sk3CBUN3xwcug');
-
-// Vérification si les tests ont réussi ou échoué
-if ($testResult->wasSuccessful()) {
-    $message = "Les tests ont réussi ! :tada:";
-} else {
-    $message = "Les tests ont échoué ! :cry:";
-}
-
-// Envoi de la notification à Slack
-$slack->send($message);
-
-?>

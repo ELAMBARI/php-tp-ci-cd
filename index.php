@@ -17,8 +17,16 @@ function calculerSomme($a, $b)
     return $somme;
 }
 
+// Créer un logger
+$log = new Logger('nom');
+
+// Ajouter un gestionnaire de fichier
+$log->pushHandler(new StreamHandler(__DIR__ . '/logs/app.log', Logger::WARNING));
+
+afficherTitre('Bienvenue');
+
 // Définition d'un tableau de noms
-$noms = array("Anas", "Hamza", "Mariame", "ziad");
+$noms = array("Anas", "Hamza", "Mariame", "Ziad");
 
 // Parcourir le tableau de noms et afficher chaque nom
 foreach ($noms as $nom) {
@@ -33,15 +41,5 @@ if ($heure < "12") {
     echo "Bon après-midi !";
 }
 
-// Créer un logger
-$log = new Logger('nom');
-
-// Ajouter un gestionnaire de fichier
-$log->pushHandler(new StreamHandler(__DIR__ . '/logs/app.log', Logger::WARNING));
-
 // Écrire un message de journalisation
 $log->warning('Un message de test');
-
-// Appel de la fonction pour afficher le titre de la page
-afficherTitre('Bienvenue');
-?>
