@@ -1,9 +1,9 @@
 {
     "require": {
-        "monolog/monolog": "^2.0",
-        "phpunit/phpunit": "^9",
-        "symfony/http-foundation": "^5.3",
-        "twig/twig": "^3.3",
+        "monolog/monolog": "^3.3.1",
+        "phpunit/phpunit": "^9.6.4",
+        "symfony/http-foundation": "^5.4.21",
+        "twig/twig": "^3.5.1",
         "rapidwebltd/php-google-contacts-v3-api": "^2.0",
         "maknz/slack": "^1.7"
     },

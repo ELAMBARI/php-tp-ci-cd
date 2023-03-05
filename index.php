@@ -1,9 +1,18 @@
-<h1>Bienvenu : </h1>
-
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+// Définition d'une fonction pour afficher le titre de la page
+function afficherTitre($titre)
+{
+    echo "<h1>$titre</h1>";
+}
 
 // Définition d'une fonction pour calculer la somme de deux nombres
-function calculerSomme($a, $b) {
+function calculerSomme($a, $b)
+{
     $somme = $a + $b;
     return $somme;
 }
@@ -12,7 +21,7 @@ function calculerSomme($a, $b) {
 $noms = array("Anas", "Hamza", "Mariame", "ziad");
 
 // Parcourir le tableau de noms et afficher chaque nom
-foreach($noms as $nom) {
+foreach ($noms as $nom) {
     echo "Nom : " . $nom . "<br>";
 }
 
@@ -24,25 +33,15 @@ if ($heure < "12") {
     echo "Bon après-midi !";
 }
 
-
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-
 // Créer un logger
-$log = new Logger('nom-du-logger');
+$log = new Logger('nom');
 
 // Ajouter un gestionnaire de fichier
-$log->pushHandler(new StreamHandler('chemin/vers/le/fichier.log', Logger::WARNING));
+$log->pushHandler(new StreamHandler(__DIR__ . '/logs/app.log', Logger::WARNING));
 
 // Écrire un message de journalisation
-$log->warning('Un avertissement s\'est produit !');
+$log->warning('Un message de test');
 
-
+// Appel de la fonction pour afficher le titre de la page
+afficherTitre('Bienvenue');
 ?>
-
-
-
-
-
-
-

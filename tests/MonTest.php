@@ -12,7 +12,6 @@ class MonTest extends TestCase
 
     public function testCalculerSomme()
     {
-        include 'index.php';
         $this->assertEquals(5, calculerSomme(2, 3));
         $this->assertEquals(10, calculerSomme(6, 4));
         $this->assertEquals(0, calculerSomme(-2, 2));
@@ -20,7 +19,7 @@ class MonTest extends TestCase
 
     public function testNoms()
     {
-        include 'index.php';
+        global $noms;
         $this->assertContains('Anas', $noms);
         $this->assertContains('Hamza', $noms);
         $this->assertContains('Mariame', $noms);
@@ -29,7 +28,7 @@ class MonTest extends TestCase
 
     public function testHeure()
     {
-        include 'index.php';
+        global $message;
         $heure = date('H');
         if ($heure < '12') {
             $this->assertEquals('Bonjour !', $message);
@@ -40,13 +39,14 @@ class MonTest extends TestCase
 }
 
 // Exécution des tests
-$resultat_des_tests = PHPUnit::runClasses([MonTest::class])->wasSuccessful();
+$suite = new PHPUnit\Framework\TestSuite(MonTest::class);
+$testResult = PHPUnit\TextUI\TestRunner::run($suite);
 
 // Instanciation du client Slack
 $slack = new SlackClient('https://join.slack.com/t/nouvelespaced-day3309/shared_invite/zt-1qn344xc1-WfNx8BgG7sk3CBUN3xwcug');
 
 // Vérification si les tests ont réussi ou échoué
-if ($resultat_des_tests == true) {
+if ($testResult->wasSuccessful()) {
     $message = "Les tests ont réussi ! :tada:";
 } else {
     $message = "Les tests ont échoué ! :cry:";
@@ -54,3 +54,5 @@ if ($resultat_des_tests == true) {
 
 // Envoi de la notification à Slack
 $slack->send($message);
+
+?>
