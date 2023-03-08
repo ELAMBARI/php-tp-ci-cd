@@ -11,6 +11,7 @@ pool:
 
 variables:
   phpVersion: 8.2.3
+  slackUrl: 'https://hooks.slack.com/services/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'
 
 jobs:
 - job: GIGD_TP_CI_CD
@@ -43,6 +44,8 @@ jobs:
     displayName: 'Run PHPUnit tests'
 
   - script: |
-     curl -X POST -H 'Content-type: application/json' --data '{"text":"Le pipeline a ete execute avec succes!"}' https://hooks.slack.com/services/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
-  displayName: 'Send Slack message'
+      env
+      echo "Sending message to Slack..."
+      curl -X POST -H 'Content-type: application/json' --data '{"text":"Le pipeline a ete execute avec succes!"}' $(slackUrl)
+    displayName: 'Send Slack message'
 
