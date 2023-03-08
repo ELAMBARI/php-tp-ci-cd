@@ -33,6 +33,7 @@ jobs:
     displayName: 'Install dependencies'
   
   - script: |
+      chmod +x vendor/bin/phpcs
       vendor/bin/phpcs --standard=PSR2 index.php
     displayName: 'Run PHP CodeSniffer'
 
@@ -47,4 +48,5 @@ jobs:
       mergeTestResults: true
       testRunTitle: 'PHP Unit Tests'
     displayName: 'Publish JUnit test results'
+  
 
