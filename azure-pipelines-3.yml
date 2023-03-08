@@ -48,8 +48,3 @@ jobs:
       testRunTitle: 'PHP Unit Tests'
     displayName: 'Publish JUnit test results'
 
-  - task: SlackSendNotification@1
-    inputs:
-      channels: 'https://join.slack.com/t/gigdespace-de-travail/shared_invite/zt-1qn344xc1-WfNx8BgG7sk3CBUN3xwcug'
-      message: 'Pipeline completed successfully!'
-    displayName: 'Send Slack notification'
