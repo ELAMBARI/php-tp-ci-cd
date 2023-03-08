@@ -10,47 +10,44 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  phpVersion: 8.2.3
-
-steps:
-- script: |
-    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
-    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
-    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
-    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
-    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
-    php -version
-  displayName: 'Use PHP version $(phpVersion)'
-
-- script: composer install --no-interaction --prefer-dist
-  displayName: 'composer install'
-
-- script: |
-    composer install
-  displayName: 'Install dependencies'
-  
-- script: |
-    vendor/bin/phpcs --standard=PSR2 index.php
-  displayName: 'Run PHP CodeSniffer'
-
-- script: |
-    vendor/bin/phpunit --log-junit test-report.xml
-  displayName: 'Run PHPUnit tests'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/test-report.xml'
-    mergeTestResults: true
-    testRunTitle: 'PHP Unit Tests'
-  displayName: 'Publish JUnit test results'
+  phpVersion: 7.2
 
 jobs:
 - job: mon_job
   timeoutInMinutes: 1
   steps:
-  - script: echo "Hello world"
-    displayName: 'Print Hello world'
+  - script: |
+      sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+      sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+      sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+      sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+      sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+      php -version
+    displayName: 'Use PHP version $(phpVersion)'
+
+  - script: composer install --no-interaction --prefer-dist
+    displayName: 'composer install'
+
+  - script: |
+      composer install
+    displayName: 'Install dependencies'
+  
+  - script: |
+      vendor/bin/phpcs --standard=PSR2 index.php
+    displayName: 'Run PHP CodeSniffer'
+
+  - script: |
+      vendor/bin/phpunit --log-junit test-report.xml
+    displayName: 'Run PHPUnit tests'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/test-report.xml'
+      mergeTestResults: true
+      testRunTitle: 'PHP Unit Tests'
+    displayName: 'Publish JUnit test results'
+
   - task: SlackSendNotification@1
     inputs:
       channels: 'https://join.slack.com/t/gigdespace-de-travail/shared_invite/zt-1qn344xc1-WfNx8BgG7sk3CBUN3xwcug'
