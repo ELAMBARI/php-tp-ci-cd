@@ -13,7 +13,7 @@ variables:
   phpVersion: 7.2
 
 jobs:
-- job: GIGD-TP-CI-CD
+- job: GIGD_TP_CI_CD
   timeoutInMinutes: 1
   steps:
   - script: |
