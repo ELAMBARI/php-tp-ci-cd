@@ -38,16 +38,8 @@ jobs:
     displayName: 'Run PHP CodeSniffer'
 
   - script: |
-      chmod +x vendor/bin/phpunit
-      vendor/bin/phpunit --log-junit test-report.xml
+      vendor/bin/phpunit tests
     displayName: 'Run PHPUnit tests'
 
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**/test-report.xml'
-      mergeTestResults: true
-      testRunTitle: 'PHP Unit Tests'
-    displayName: 'Publish JUnit test results'
   
 
