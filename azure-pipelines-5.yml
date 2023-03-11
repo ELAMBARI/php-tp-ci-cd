@@ -51,4 +51,4 @@ jobs:
 
   - script: |
      curl -H "Content-Type: application/json" -d '{"title": "Pipeline azure CI/CD", "text": "Le pipeline a ete execute avec succes"}' $(teams)
-  displayName: 'Send message to Teams'
+    displayName: 'Send message to Teams'
