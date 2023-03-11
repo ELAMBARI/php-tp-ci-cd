@@ -44,7 +44,7 @@ jobs:
     displayName: 'Run PHPUnit tests'
 
   - script: |
-     curl -X POST -H 'Content-type: application/json' --data '{"text":"Le pipeline a été exécuté avec succès !"}' https://hooks.slack.com/services/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
+     curl -X POST -H 'Content-type: application/json' --data '{"text":"Le pipeline a été exécuté avec succès !"}' https://hooks.slack.com/services/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
      displayName: 'Send Slack message'
 
 
