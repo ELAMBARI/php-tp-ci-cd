@@ -6,6 +6,7 @@
         "twig/twig": "^3.5.1",
         "rapidwebltd/php-google-contacts-v3-api": "^2.0",
         "maknz/slack": "^1.7"
+		"slack-php/slack-php": "^2.2"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7"
