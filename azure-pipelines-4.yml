@@ -48,5 +48,5 @@ jobs:
      displayName: 'Send Slack message'
 
   - script: |
-     curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+     curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
 
