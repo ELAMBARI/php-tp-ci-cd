@@ -11,7 +11,7 @@ pool:
 
 variables:
   phpVersion: 8.2.3
-  slackUrl: 'https://hooks.slack.com/services/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'
+  slackUrl: 'https://hooks.slack.com/services/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'
 
 
 jobs:
