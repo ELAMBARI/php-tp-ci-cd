@@ -47,3 +47,7 @@ jobs:
   - script: |
      curl -X POST -H 'Content-type: application/json' --data '{"text":"Le pipeline a été exécuté avec succès !"}' $(slackUrl)
     displayName: 'Send Slack message'
+
+  - script: |
+     curl -H "Content-Type: application/json" -d '{"title": "Pipeline azure CI/CD", "text": "Le pipeline a ete execute avec succes"}' https://uitacma.webhook.office.com/webhookb2/86c9f44a-de61-4a51-8815-f11c1f02872b@7c31a0e5-7974-4f01-831a-88f007bb9711/IncomingWebhook/ad913b65800f414a8db5cbf73d10e55a/7dff2da0-1ce3-4257-9a77-a91735c519ca
+  displayName: 'Send message to Teams'
