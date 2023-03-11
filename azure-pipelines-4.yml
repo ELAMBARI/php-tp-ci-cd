@@ -43,9 +43,12 @@ jobs:
       vendor/bin/phpunit tests
     displayName: 'Run PHPUnit tests'
 
-  - script: |
-      env
-      echo "Sending message to Slack..."
-      curl -X POST -H 'Content-type: application/json' --data '{"text":"Le pipeline a ete execute avec succes!"}' $(slackUrl)
-    displayName: 'Send Slack message'
+  variables:
+    slackUrl: 'https://hooks.slack.com/services/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'
+    message: 'Le pipeline a été exécuté avec succès !'
+
+    steps:
+    - script: |
+      curl -X POST -H 'Content-type: application/json' --data '{"text":"$(message)"}' $(slackUrl)
+      displayName: 'Send Slack message'
 
