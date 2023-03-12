@@ -27,6 +27,10 @@ jobs:
       sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
       php -version
     displayName: 'Use PHP version $(phpVersion)'
+  
+  - script: |
+     curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+    displayName: 'Send Slack message'
 
   - script: composer install --no-interaction --prefer-dist
     displayName: 'composer install'
@@ -44,10 +48,6 @@ jobs:
       chmod +x vendor/bin/phpunit
       vendor/bin/phpunit tests
     displayName: 'Run PHPUnit tests'
-
-  - script: |
-     curl -X POST -H 'Content-type: application/json' --data '{"text":"Le pipeline a été exécuté avec succès !"}' https://hooks.slack.com/services/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
-    displayName: 'Send Slack message'
 
   - script: |
      curl -H "Content-Type: application/json" -d '{"title": "Pipeline azure CI/CD", "text": "Le pipeline a ete execute avec succes"}' $(teams)
