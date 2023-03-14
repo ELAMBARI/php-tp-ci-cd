@@ -11,13 +11,15 @@ pool:
 
 variables:
   phpVersion: 8.2.3
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
   slackUrl1 : 'https://hooks.slack.com/services/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'
   teams : 'https://uitacma.webhook.office.com/webhookb2/86c9f44a-de61-4a51-8815-f11c1f02872b@7c31a0e5-7974-4f01-831a-88f007bb9711/IncomingWebhook/ad913b65800f414a8db5cbf73d10e55a/7dff2da0-1ce3-4257-9a77-a91735c519ca'
 
 
 jobs:
 - job: GIGD_TP_CI_CD
-  timeoutInMinutes: 1
   steps:
   - script: |
       sudo update-alternatives --set php /usr/bin/php$(phpVersion)
@@ -27,11 +29,13 @@ jobs:
       sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
       php -version
     displayName: 'Use PHP version $(phpVersion)'
-  
-
 
   - script: composer install --no-interaction --prefer-dist
     displayName: 'composer install'
+
+  - script: dotnet build --configuration $(buildConfiguration) --no-restore 
+    displayName: 'dotnet build $(buildConfiguration)'
+    timeoutInMinutes: 10
 
   - script: |
       composer install
