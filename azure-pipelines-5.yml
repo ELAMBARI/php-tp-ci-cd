@@ -54,5 +54,5 @@ jobs:
   - script: |
      curl -sSL https://github.com/actions/notify-slack/releases/download/v1.4.2/slack-notify-linux-amd64 -o slack-notify
      chmod +x slack-notify
-     ./slack-notify --message "Le pipeline a été exécuté avec succès" --webhook-url $(slackUrl1)
+     ./slack-notify --message "Le pipeline a été exécuté avec succès" --webhook-url https://hooks.slack.com/services/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
     displayName: 'Send message to Slack'
