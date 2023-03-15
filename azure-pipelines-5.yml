@@ -58,5 +58,5 @@ jobs:
     displayName: 'Send message to Teams'
 
   - script: |
-     curl -X POST -H 'Content-type: application/json' --data '{"text":"Le pipeline a été exécuté avec succès !"}' $(slackUrl1)
+     curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, world!"}' ${{ secrets.SLACK_WEBHOOK_URL }}
     displayName: 'Send Slack message'
