@@ -5,7 +5,8 @@
         "symfony/http-foundation": "^5.4.21",
         "twig/twig": "^3.5.1",
         "rapidwebltd/php-google-contacts-v3-api": "^2.0",
-        "maknz/slack": "^1.7"
+        "maknz/slack": "^1.7",
+        "simonbackx/slack-php-webhook": "~1.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7"
